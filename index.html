@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html style="height: 100%;">
+	<head>
+        <!--API de Google+-->
+        <meta name="google-signin-client_id" content="380519143105-8mssc8nvoee1c7r7b5sau7k3sr5p09cm.apps.googleusercontent.com">
+
+        <meta charset="utf-8">
+		<title>Registro de Usuarios</title>
+
+		<!-- Referencia a Bootstrap -->
+		<link rel="stylesheet"
+			  type="text/css"
+			  href="res/bootstrap/css/bootstrap.min.css">
+	</head>
+
+	<body ng-app="messagingApp" ng-controller="usersCtrl" style="height: 100%;">
+		<div class="container">
+            <!--Titulo Principal-->
+            <div class="row col-md-12 container">
+                    <h3 class="text-center">Registro de Usuarios</h3>
+            </div>
+
+            <div class="row">
+                <!-- Sección Izquierda de la Interfaz -->
+                <div class="col-md-5 form-group">
+                    <!-- Cedula -->
+                    <div class="form-group col-md-12">
+                        <label for="personId">Cedula</label>
+                        <input id="personId"
+                               type="text"
+                               class="form-control"
+                               placeholder="Cedula de Identidad"
+                               ng-blur="guardarPersona();"/>
+                    </div>
+
+                    <!-- Nombre -->
+                    <div class="form-group col-md-12">
+                        <label for="personName">Nombres</label>
+                        <input id="personName"
+                               type="text"
+                               class="form-control"
+                               placeholder="Nombre"
+                               ng-blur="guardarPersona();"/>
+                    </div>
+
+                    <!-- Apellidos -->
+                    <div class="form-group col-md-12">
+                        <label for="personLastName">Apellidos</label>
+                        <input id="personLastName"
+                               type="text"
+                               class="form-control"
+                               placeholder="Apellido"
+                               ng-blur="guardarPersona();"/>
+                    </div>
+
+                    <!-- Fecha de Nacimiento -->
+                    <div class="form-group col-md-12">
+                        <label for="personBirthday">Fecha de Nacimiento</label>
+                        <input id="personBirthday"
+                               type="date"
+                               class="form-control"
+                               ng-blur="guardarPersona();"/>
+                    </div>
+
+                    <!-- Direccion -->
+                    <div class="form-group col-md-12">
+                        <label for="personDir">Direccion</label>
+                        <div class="input-group">
+                            <input id="personDir"
+                                   type="text"
+                                   class="form-control"
+                                   placeholder="Direccion"
+                                   ng-blur="guardarPersona();"/>
+                            <!--Pegar el boton al input de texto-->
+                            <span class="input-group-btn">
+                                <button id ="buttonDir"
+                                        class="btn btn-secondary"
+                                        type="button"
+                                        ng-click="obtenerUbicacion();">
+                                    <span class="glyphicon glyphicon-screenshot"
+                                              aria-hidden="true"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Botones -->
+                    <div class=" form-group">
+                        <div class="col-md-12">
+                            <!--Grupo de Botones-->
+                            <div class="btn-group">
+                                <input type="button"
+                                       class="btn btn-success"
+                                       ng-click="registrarPersona();"
+                                       value="Registrar"/>
+                                <input type="button"
+                                       class="btn btn-default"
+                                       ng-click="limpiarCampos();"
+                                       value="Limpiar Campos"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección Derecha de la Interfaz -->
+                <div class="col-md-7">
+                    <div id="map" style="height: 400px; width: 100%;"></div>
+                    <script>
+//                        var map = new google.maps.Map;
+                        var map;
+                        function initMap() {
+                            map = new google.maps.Map(document.getElementById('map'), {
+                                //Coordenadas de la URU
+                                center: {lat: 10.649977, lng: -71.596285},
+                                zoom: 17
+                            });
+                        }
+                    </script>
+                </div>
+            </div>
+
+            <!--Tabla de Usuarios-->
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <table class="table table-bordered table-striped text-center">
+                        <thead>
+                        <tr>
+                            <th>Cedula</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Fecha de Nacimiento</th>
+                            <th>Direccion</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr ng-repeat="g in gente">
+                            <td>{{ g.cedula }}</td>
+                            <td>{{ g.nombres }}</td>
+                            <td>{{ g.apellidos }}</td>
+                            <td>{{ g.fecha_nacimiento }}</td>
+                            <td>{{ g.direccion }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Referencia de jQuery -->
+        <script type="text/javascript" src="res/js/jquery-3.1.0.min.js"></script>
+        <!--Referencia API Google Maps-->
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqf38ymhq6ppnaC-SmlAtFOjKRfsdLXsw&callback=initMap&language=es&region=VE"
+                async defer></script>
+        <!-- Referencias de AngularJS -->
+        <script type="text/javascript" src="res/js/angular.min.js"></script>
+        <script type="text/javascript" src="res/js/app.js"></script>
+    </body>
+</html>
